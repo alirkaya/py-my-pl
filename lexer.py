@@ -1,5 +1,6 @@
 from tokens import *
 from string import digits
+from errors import IllegalCharError
 
 
 class Lexer:
@@ -43,7 +44,9 @@ class Lexer:
                 tokens.append(Token(TT_RPAREN))
                 self.advance()
             else:
-                return [], 'Error'
+                char = self.current_char
+                self.advance()
+                return [], IllegalCharError(f'"{char}"')
 
         return tokens, None
 
