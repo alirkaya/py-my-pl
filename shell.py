@@ -3,7 +3,8 @@ from lexer import Lexer
 
 while True:
     text = input('basic >>> ')
-    tokens, error = Lexer(text).make_tokens()
+    file = '<stdin>'
+    tokens, error = Lexer(file, text).make_tokens()
 
-    if error: print('Invalid Syntax')
+    if error: print(error.as_string())
     else: print(tokens)

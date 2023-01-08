@@ -1,20 +1,22 @@
 from tokens import *
 from string import digits
 from errors import IllegalCharError
+from position import Position
 
 
 class Lexer:
     """Break text into tokens."""
 
-    def __init__(self, text):
+    def __init__(self, fn, text):
+        self.fn = fn
         self.text = text
-        self.pos = -1
+        self.pos = Position(-1, 0, -1, fn, text)
         self.current_char = None
         self.advance()
 
     def advance(self):
-        self.pos += 1
-        self.current_char = self.text[self.pos] if self.pos < len(self.text) else None
+        self.pos.advance(self.current_char)
+        self.current_char = self.text[self.pos.idx] if self.pos.idx < len(self.text) else None
 
     def make_tokens(self):
         tokens = []
@@ -44,9 +46,10 @@ class Lexer:
                 tokens.append(Token(TT_RPAREN))
                 self.advance()
             else:
+                pos_start = self.pos.copy()
                 char = self.current_char
                 self.advance()
-                return [], IllegalCharError(f'"{char}"')
+                return [], IllegalCharError(pos_start, self.pos, f'"{char}"')
 
         return tokens, None
 
