@@ -1,7 +1,7 @@
-from tokens import *
+from bin.utils.tokens import *
 from string import digits
-from errors import IllegalCharError
-from position import Position
+from bin.errors.errors import IllegalCharError
+from bin.utils.position import Position
 
 
 class Lexer:
