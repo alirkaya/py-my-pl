@@ -26,7 +26,6 @@ class Lexer:
                 self.advance()
             elif self.current_char in digits:
                 tokens.append(self.make_number())
-                self.advance()
             elif self.current_char == '+':
                 tokens.append(Token(TT_PLUS))
                 self.advance()
