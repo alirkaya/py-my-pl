@@ -12,6 +12,10 @@ while True:
 
     parser = Parser(tokens)
     ast = parser.parse()  # abstract-syntax-tree
-    print(ast)
+    node, error = ast.node, ast.error
+    if error:
+        print(error.as_string())
+    else:
+        print(node)
     # if error: print(error.as_string())
     # else: print(tokens)
